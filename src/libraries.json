@@ -1,0 +1,21 @@
+{
+  "libraries": [
+    {
+      "id": "webinar-m365",
+      "title": "Microsoft-technologie helder uitgelegd",
+      "description": "Webinar waarin ik complexe Microsoft-concepten rustig en toepasbaar uitleg.",
+      "url": "https://www.youtube.com/watch?v=qRDfTLo8ZzA&t=176s",
+      "platform": "YouTube",
+      "kind": "video"
+    },
+    {
+      "id": "channel-placeholder",
+      "title": "Mijn YouTube-kanaal",
+      "description": "Vervang deze URL door je kanaal- of playlist-link. Alles in libraries.json verschijnt hier.",
+      "url": "https://www.youtube.com/@",
+      "platform": "YouTube",
+      "kind": "channel",
+      "draft": true
+    }
+  ]
+}

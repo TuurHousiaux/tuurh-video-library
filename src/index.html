@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Video libraries van Tuur Housiaux — webinars, playlists en kanalen." />
+    <meta name="theme-color" content="#f2eee4" />
+    <title>Video library — tuurh.be</title>
+    <link rel="stylesheet" href="resources.css" />
+    <script src="/shared/navigation.js" type="module"></script>
+  </head>
+  <body class="me-resources">
+    <tuurh-navigation></tuurh-navigation>
+    <main class="wrap">
+      <section class="hero">
+        <p class="kicker">Over mij · 02.02</p>
+        <h1>Video <em>library</em></h1>
+        <p>Verwijzingen naar mijn openbare libraries, playlists en webinars. Wat hier staat, bepaal ik via een whitelist.</p>
+        <div class="toolbar">
+          <a class="button button-ghost" href="/me/">← Over mij</a>
+          <a class="button button-primary" href="/me/leerpaden/">Leerpaden →</a>
+        </div>
+      </section>
+      <div class="grid" id="grid" aria-live="polite"></div>
+      <p class="hint">Beheer: voeg of verwijder items in <code>libraries.json</code>. Zet <code>"draft": true</code> om een item tijdelijk te verbergen (of laat draft-items weg). Alleen whitelisted URL’s verschijnen hier.</p>
+    </main>
+    <script type="module">
+      const grid = document.getElementById("grid");
+      const data = await fetch("./libraries.json").then((r) => r.json());
+      const items = (data.libraries || []).filter((item) => !item.draft);
+      if (!items.length) {
+        grid.innerHTML = `<div class="empty">Nog geen libraries gepubliceerd. Voeg entries toe in libraries.json.</div>`;
+      } else {
+        grid.innerHTML = items.map((item) => `
+          <a class="card" href="${item.url}" target="_blank" rel="noreferrer">
+            <div class="meta"><span>${item.platform || "Video"}</span><span>${item.kind || "link"}</span></div>
+            <h2>${item.title}</h2>
+            <p>${item.description || ""}</p>
+          </a>`).join("");
+      }
+    </script>
+  </body>
+</html>
