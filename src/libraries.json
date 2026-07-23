@@ -1,10 +1,18 @@
 {
   "libraries": [
     {
-      "id": "webinar-m365",
-      "title": "Microsoft-technologie helder uitgelegd",
-      "description": "Webinar waarin ik complexe Microsoft-concepten rustig en toepasbaar uitleg.",
-      "url": "https://www.youtube.com/watch?v=qRDfTLo8ZzA&t=176s",
+      "id": "webinar-PS-1",
+      "title": "PowerShell scripts die stil falen? Zo los je het op met logging & error handling",
+      "description": "PowerShell is een krachtige tool voor automatisatie en beheer. Maar wat als een script faalt… zonder foutmelding, zonder logging en zonder duidelijke oorzaak? Stil falende scripts zorgen vaak voor frustratie, tijdverlies en onbetrouwbare automatisaties. In deze webinaropname tonen we hoe je met enkele gerichte technieken je scripts veel robuuster, transparanter en onderhoudsvriendelijker maakt.",
+      "url": "https://www.youtube.com/watch?v=qRDfTLo8ZzA",
+      "platform": "YouTube",
+      "kind": "video"
+    },
+        {
+      "id": "webinar-Intune-1",
+      "title": "Intune Troubleshooting: Hoe los je hardnekkige Intune‑problemen sneller op?",
+      "description": "Policies die niet toepassen, devices die plots non‑compliant zijn of deployments die gewoon weigeren… Het is herkenbaar voor iedereen die met Intune werkt. Tijdens dit gratis Boost Me Up‑webinar tonen we hoe je Intune‑problemen sneller en gestructureerd kunt aanpakken.",
+      "url": "https://www.youtube.com/watch?v=qRDfTLo8ZzA",
       "platform": "YouTube",
       "kind": "video"
     },
