@@ -20,6 +20,52 @@
       <div class="grid" id="grid" aria-live="polite"></div>
     </main>
     <script type="module">
+      const PALETTE = [
+        ["#1a2744", "#e96d45"],
+        ["#14261f", "#d7ff40"],
+        ["#2a1830", "#f0a35e"],
+        ["#1c2438", "#7eb8ff"],
+        ["#241810", "#ef6b6b"],
+      ];
+
+      function hashSeed(value) {
+        let hash = 0;
+        for (const char of String(value)) hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
+        return hash;
+      }
+
+      function initials(title) {
+        const words = String(title).replace(/[^\p{L}\p{N}\s]/gu, " ").trim().split(/\s+/).filter(Boolean);
+        if (!words.length) return "TH";
+        return words.slice(0, 2).map((word) => word[0]).join("").toUpperCase();
+      }
+
+      function shortLabel(title) {
+        const text = String(title || "").trim();
+        if (text.length <= 42) return text;
+        return `${text.slice(0, 39).trim()}…`;
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;");
+      }
+
+      function coverMarkup(item) {
+        if (item.image) {
+          return `<div class="cover"><img src="${escapeHtml(item.image)}" alt="" loading="lazy" decoding="async" /></div>`;
+        }
+        const [from, to] = PALETTE[hashSeed(item.id || item.title) % PALETTE.length];
+        return `
+          <div class="cover cover-generated" style="--cover-from:${from};--cover-to:${to}">
+            <span class="cover-initials">${escapeHtml(initials(item.title))}</span>
+            <span class="cover-title">${escapeHtml(shortLabel(item.title))}</span>
+          </div>`;
+      }
+
       const grid = document.getElementById("grid");
       const data = await fetch("./libraries.json").then((r) => r.json());
       const items = (data.libraries || []).filter((item) => !item.draft);
@@ -27,10 +73,13 @@
         grid.innerHTML = `<div class="empty">Nog geen libraries gepubliceerd. Voeg entries toe in libraries.json.</div>`;
       } else {
         grid.innerHTML = items.map((item) => `
-          <a class="card" href="${item.url}" target="_blank" rel="noreferrer">
-            <div class="meta"><span>${item.platform || "Video"}</span><span>${item.kind || "link"}</span></div>
-            <h2>${item.title}</h2>
-            <p>${item.description || ""}</p>
+          <a class="card" href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer">
+            ${coverMarkup(item)}
+            <div class="card-body">
+              <div class="meta"><span>${escapeHtml(item.platform || "Video")}</span><span>${escapeHtml(item.kind || "link")}</span></div>
+              <h2>${escapeHtml(item.title)}</h2>
+              <p>${escapeHtml(item.description || "")}</p>
+            </div>
           </a>`).join("");
       }
     </script>
